@@ -326,7 +326,7 @@ func (b *Bitstamp) GetActiveOrders(getOrdersRequest *exchange.GetOrdersRequest) 
 	}
 
 	for _, order := range resp {
-		orderDate := time.Unix(order.Date, 0)
+		orderDate, _ := time.Parse("2006-01-02 15:04:05", order.Date)
 		orders = append(orders, exchange.OrderDetail{
 			Amount:    order.Amount,
 			ID:        fmt.Sprintf("%v", order.ID),
