@@ -91,9 +91,9 @@ type UserTransactions struct {
 
 // Order holds current open order data
 type Order struct {
-	ID       int64   `json:"id"`
+	ID       int64   `json:"id,string"`
 	Date     string  `json:"datetime"`
-	Type     int     `json:"type"`
+	Type     int     `json:"type,string"`
 	Price    float64 `json:"price,string"`
 	Amount   float64 `json:"amount,string"`
 	Currency string  `json:"currency_pair"`
