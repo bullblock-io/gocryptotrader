@@ -94,8 +94,8 @@ type Order struct {
 	ID       int64   `json:"id"`
 	Date     int64   `json:"datetime"`
 	Type     int     `json:"type"`
-	Price    float64 `json:"price"`
-	Amount   float64 `json:"amount"`
+	Price    float64 `json:"price,string"`
+	Amount   float64 `json:"amount,string"`
 	Currency string  `json:"currency_pair"`
 }
 
