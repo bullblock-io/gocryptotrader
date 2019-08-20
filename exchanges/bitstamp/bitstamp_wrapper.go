@@ -327,11 +327,16 @@ func (b *Bitstamp) GetActiveOrders(getOrdersRequest *exchange.GetOrdersRequest) 
 
 	for _, order := range resp {
 		orderDate, _ := time.Parse("2006-01-02 15:04:05", order.Date)
+		side := exchange.BidOrderSide
+		if order.Type == 1 {
+			side = exchange.AskOrderSide
+		}
 		orders = append(orders, exchange.OrderDetail{
 			Amount:    order.Amount,
 			ID:        fmt.Sprintf("%v", order.ID),
 			Price:     order.Price,
 			OrderDate: orderDate,
+			OrderSide: side,
 			CurrencyPair: currency.NewPairFromStrings(order.Currency[0:3],
 				order.Currency[len(order.Currency)-3:]),
 			Exchange: b.Name,
