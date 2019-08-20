@@ -369,9 +369,8 @@ func (b *Bitstamp) GetEURUSDConversionRate() (EURUSDConversionRate, error) {
 // GetBalance returns full balance of currency held on the exchange
 func (b *Bitstamp) GetBalance() (Balances, error) {
 	balance := Balances{}
-	path := fmt.Sprintf("%s/%s", b.APIUrl, bitstampAPIBalance)
 
-	return balance, b.SendHTTPRequest(path, &balance)
+	return balance, b.SendAuthenticatedHTTPRequest(bitstampAPIBalance, true, url.Values{}, &balance)
 }
 
 // GetUserTransactions returns an array of transactions
