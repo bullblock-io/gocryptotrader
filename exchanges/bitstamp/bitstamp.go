@@ -463,12 +463,12 @@ func (b *Bitstamp) GetOrderStatus(orderID int64) (OrderStatus, error) {
 
 // CancelExistingOrder cancels order by ID
 func (b *Bitstamp) CancelExistingOrder(orderID int64) (bool, error) {
-	result := false
+	result := Order{}
 	var req = url.Values{}
 	req.Add("id", strconv.FormatInt(orderID, 10))
+	err := b.SendAuthenticatedHTTPRequest(bitstampAPICancelOrder, true, req, &result)
+	return err == nil, err
 
-	return result,
-		b.SendAuthenticatedHTTPRequest(bitstampAPICancelOrder, true, req, &result)
 }
 
 // CancelAllExistingOrders cancels all open orders on the exchange
