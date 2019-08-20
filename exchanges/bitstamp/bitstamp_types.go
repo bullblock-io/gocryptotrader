@@ -99,6 +99,14 @@ type Order struct {
 	Currency string  `json:"currency_pair"`
 }
 
+// CanceledOrder holds order data for order being canceled.
+type CanceledOrder struct {
+	ID     int64   `json:"id,string"`
+	Type   int     `json:"type,string"`
+	Price  float64 `json:"price,string"`
+	Amount float64 `json:"amount,string"`
+}
+
 // OrderStatus holds order status information
 type OrderStatus struct {
 	Status       string
