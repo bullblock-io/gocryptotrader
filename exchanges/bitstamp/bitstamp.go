@@ -483,7 +483,7 @@ func (b *Bitstamp) PlaceOrder(currencyPair string, price, amount float64, buy, m
 	var req = url.Values{}
 	req.Add("amount", strconv.FormatFloat(amount, 'f', -1, 64))
 	req.Add("price", strconv.FormatFloat(price, 'f', -1, 64))
-	response := Order{}
+	response := PlaceOrderResponce{}
 	orderType := bitstampAPIBuy
 
 	if !buy {
@@ -495,9 +495,12 @@ func (b *Bitstamp) PlaceOrder(currencyPair string, price, amount float64, buy, m
 	if market {
 		path = fmt.Sprintf("%s/%s/%s", orderType, bitstampAPIMarket, common.StringToLower(currencyPair))
 	}
+	err := b.SendAuthenticatedHTTPRequest(path, true, req, &response)
+	if strings.EqualFold(response.Status, "error") {
+		err = fmt.Errorf("order creation failed with reason: %v", response.Reason)
+	}
+	return response.Order, err
 
-	return response,
-		b.SendAuthenticatedHTTPRequest(path, true, req, &response)
 }
 
 // GetWithdrawalRequests returns withdrawal requests for the account

@@ -107,6 +107,13 @@ type CanceledOrder struct {
 	Amount float64 `json:"amount"`
 }
 
+// PlaceOrderResponce holds the responce data for created order.
+type PlaceOrderResponce struct {
+	Order
+	Status string              `json:"status"`
+	Reason map[string][]string `json:"reason"`
+}
+
 // OrderStatus holds order status information
 type OrderStatus struct {
 	Status       string
