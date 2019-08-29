@@ -124,6 +124,9 @@ func main() {
 	log.Debugf("Global HTTP request timeout: %v.\n", common.HTTPClient.Timeout)
 
 	SetupExchanges()
+	if len(bot.exchanges) == 0 {
+		log.Fatal("No exchanges were able to be loaded. Exiting")
+	}
 
 	log.Debugf("Starting communication mediums..")
 	cfg := bot.config.GetCommunicationsConfig()
@@ -223,7 +226,7 @@ func ActivateNTP() {
 			configNTPNegativeTime := (*bot.config.NTPClient.AllowedNegativeDifference - (*bot.config.NTPClient.AllowedNegativeDifference * 2))
 			if NTPcurrentTimeDifference > configNTPTime || NTPcurrentTimeDifference < configNTPNegativeTime {
 				log.Warnf("Time out of sync (NTP): %v | (time.Now()): %v | (Difference): %v | (Allowed): +%v / %v", NTPTime, currentTime, NTPcurrentTimeDifference, configNTPTime, configNTPNegativeTime)
-				if bot.config.NTPClient.Level == 0 {
+				if *bot.config.Logging.Enabled && bot.config.NTPClient.Level == 0 {
 					disable, errNTP := bot.config.DisableNTPCheck(os.Stdin)
 					if errNTP != nil {
 						log.Errorf("failed to disable ntp time check reason: %v", errNTP)
