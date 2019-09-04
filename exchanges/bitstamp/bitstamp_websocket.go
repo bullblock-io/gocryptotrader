@@ -133,7 +133,7 @@ func (b *Bitstamp) WsHandleData() {
 				p := currency.NewPairFromString(common.StringToUpper(currencyPair[2]))
 
 				b.Websocket.DataHandler <- LiveOrderData{
-					ID:           wsLiveOrder.Data.ID,
+					ID:           strconv.FormatInt(wsLiveOrder.Data.ID, 10),
 					Price:        wsLiveOrder.Data.Price,
 					Amount:       wsLiveOrder.Data.Amount,
 					OrderType:    wsLiveOrder.Data.OrderType,

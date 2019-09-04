@@ -228,7 +228,7 @@ type websocketLiveOrderResponse struct {
 	Data websocketLiveOrder `json:"data"`
 }
 type websocketLiveOrder struct {
-	ID             string  `json:"id"`
+	ID             int64   `json:"id"`
 	Price          float64 `json:"price"`
 	Amount         float64 `json:"amount"`
 	OrderType      int64   `json:"order_type"`
