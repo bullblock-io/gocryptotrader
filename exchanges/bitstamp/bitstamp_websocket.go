@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/thrasher-corp/gocryptotrader/common"
@@ -115,9 +116,39 @@ func (b *Bitstamp) WsHandleData() {
 					Exchange:     b.GetName(),
 					AssetType:    ticker.Spot,
 				}
+			case "order_created", "order_deleted", "order_changed":
+				wsLiveOrder := websocketLiveOrderResponse{}
+
+				err := common.JSONDecode(resp.Raw, &wsLiveOrder)
+				if err != nil {
+					b.Websocket.DataHandler <- err
+					continue
+				}
+
+				currencyPair := common.SplitStrings(wsResponse.Channel, "_")
+				if len(currencyPair) < 3 {
+					b.Websocket.DataHandler <- fmt.Errorf("unsupported channel %s for event %s", wsResponse.Channel, wsResponse.Event)
+					continue
+				}
+				p := currency.NewPairFromString(common.StringToUpper(currencyPair[2]))
+
+				b.Websocket.DataHandler <- LiveOrderData{
+					ID:           wsLiveOrder.Data.ID,
+					Price:        wsLiveOrder.Data.Price,
+					Amount:       wsLiveOrder.Data.Amount,
+					OrderType:    wsLiveOrder.Data.OrderType,
+					CurrencyPair: p,
+					Exchange:     b.GetName(),
+					EventType:    wsLiveOrder.Event,
+					Timestamp:    timeFromMicro(wsLiveOrder.Data.Microtimestamp),
+				}
 			}
 		}
 	}
+}
+
+func timeFromMicro(microtimestamp int64) time.Time {
+	return time.Unix(microtimestamp/1000000, (microtimestamp%1000000)*1000)
 }
 
 func (b *Bitstamp) generateDefaultSubscriptions() {

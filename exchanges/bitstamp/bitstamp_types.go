@@ -1,5 +1,11 @@
 package bitstamp
 
+import (
+	"time"
+
+	"github.com/thrasher-corp/gocryptotrader/currency"
+)
+
 // Ticker holds ticker information
 type Ticker struct {
 	Last      float64 `json:"last,string"`
@@ -215,4 +221,28 @@ type websocketOrderBook struct {
 	Bids           [][]string `json:"bids"`
 	Timestamp      int64      `json:"timestamp,string"`
 	Microtimestamp string     `json:"microtimestamp"`
+}
+
+type websocketLiveOrderResponse struct {
+	websocketResponse
+	Data websocketLiveOrder `json:"data"`
+}
+type websocketLiveOrder struct {
+	ID             string  `json:"id"`
+	Price          float64 `json:"price"`
+	Amount         float64 `json:"amount"`
+	OrderType      int64   `json:"order_type"`
+	Timestamp      int64   `json:"datetime,string"`
+	Microtimestamp int64   `json:"microtimestamp,string"`
+}
+
+type LiveOrderData struct {
+	ID           string
+	Timestamp    time.Time
+	CurrencyPair currency.Pair
+	Exchange     string
+	EventType    string
+	Price        float64
+	Amount       float64
+	OrderType    int64
 }

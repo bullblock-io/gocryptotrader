@@ -8,6 +8,8 @@ github.com/gorilla/websocket v1.4.0 h1:WDFjx/TMzVgy9VdMMQi2K2Emtwi2QcUQsztZ/zLaH
 github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
 github.com/thrasher-corp/gocryptotrader v0.0.0-20190820042846-21172bf63fc3 h1:Rg94EYBt+faJrJSV4IH2853h3mkqqrroBNueEvqfleQ=
 github.com/thrasher-corp/gocryptotrader v0.0.0-20190820042846-21172bf63fc3/go.mod h1:FpnhmoFiilhKh/jcHZScVORny5hvU+/Zw+dhDEhJqAE=
+github.com/thrasher-corp/gocryptotrader v0.0.0-20190827004747-c7ca29a6d74d h1:TqTKj2yzdrTK4ESV3BpXXjNS45+/8l6RKCiZXHzJmBU=
+github.com/thrasher-corp/gocryptotrader v0.0.0-20190827004747-c7ca29a6d74d/go.mod h1:FpnhmoFiilhKh/jcHZScVORny5hvU+/Zw+dhDEhJqAE=
 github.com/toorop/go-pusher v0.0.0-20180521062818-4521e2eb39fb h1:9kcmLvQdiIecpgVEL3/+J5QIP/ElRBJDljOay0SvqnA=
 github.com/toorop/go-pusher v0.0.0-20180521062818-4521e2eb39fb/go.mod h1:VTLqNCX1tXrur6pdIRCl8Q90FR7nw/mEBdyMkWMcsb0=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
